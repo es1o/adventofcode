@@ -1,6 +1,6 @@
 require 'time'
-# data = File.read('test.txt')
 data = File.readlines('input.txt')
+# data = File.readlines('test.txt')
 guard = nil
 
 duties = Hash.new
@@ -13,37 +13,47 @@ guards.each do |g|
 	m = Time.parse(date).min
 	if g =~ /^\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}\] Guard #\d+ begins shift.*$/
 		guard = g.split(' ')[3]
-		p m
 		if not duties.key? guard
 			duties[guard] = Hash.new
 		end
-		duties[guard][t] = Array.new(60)
+		duties[guard][t] = Hash.new
+		duties[guard][t][m] = "w"
 	elsif g =~ /^\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}\] falls asleep.*$/
 		if not duties[guard].key? t
-			duties[guard][t] = Array.new(60)
+			duties[guard][t] = Hash.new
 		end
 		duties[guard][t][m] = "s"
 	elsif g =~ /^\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}\] wakes up.*$/
 		if not duties[guard].key? t
-			duties[guard][t] = Array.new(60)
+			duties[guard][t] = Hash.new
 		end
 		duties[guard][t][m] = "w"
 
 	end
 end
+result = Hash.new
 duties.each do |k,v|
-	p k
-	v.each do |x,y|
-		status = "w"
-		y.each_with_index do |t,i|
-			if t == "w" or t == "s"
-				status = t
-			else
-				y[i] = status
+	status = "w"
+	minutes = [0]*60
+	v.each do |d,t|
+		for x in 0..59
+			if t.key? x
+				status = t[x]
+			end
+			if status == "s"
+				minutes[x] += 1
 			end
 		end
 	end
-	# p v.values.flatten.count {|z| z == "s"}
+	result[k] = minutes
 end
-# p duties
-p duties["#1973"]
+# max = result.sort_by{|k,v| v.count{|x| x > 0}}.reverse.to_h
+max = result.sort_by{|k,v| v.sum}.reverse.to_h
+p max
+max_keys = max[max.keys.first]
+# p max_keys[46]
+# p max.keys.first
+# p max_keys[4]
+# p max_keys
+p max_keys.rindex(max_keys.max)
+p max_keys.index(max_keys.max)
