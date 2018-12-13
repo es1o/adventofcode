@@ -1,4 +1,5 @@
-INPUT = File.readlines('test.txt')
+# INPUT = File.readlines('test.txt')
+INPUT = File.readlines('input.txt')
 
 # y_len = INPUT.length
 # x_len = INPUT.max.length
@@ -23,27 +24,46 @@ def right(s)
 end
 
 def left(s)
-    SYMBOLS[SYMBOLS.find_index(s)+1]
+    index = SYMBOLS.find_index(s) + 1
+    if index >= SYMBOLS.length
+        index = index - SYMBOLS.length
+    end
+    SYMBOLS[index]
 end
 
+def check(arrays)
+    arrays.each do |a|
+        z = arrays.select { |x| x["x"] == a["x"] and x["y"] == a["y"]}
+        if z.length > 1
+            p "esio"
+            p z
+            return z
+        end
+    end
+    return false
+end
 def run(table, arrays)
     bum = true
 
     while bum
         arrays.each do |a|
-            p a
+            # p a
             t_x = a["x"]
             t_y = a["y"]
             if a["s"] == ">"
                 t_x += 1
+                a["x"] += 1
             elsif a["s"] == "<"
+                a["x"] -= 1
                 t_x -= 1
             elsif a["s"] == "^"
+                a["y"] -= 1
                 t_y -= 1
             else
+                a["y"] += 1
                 t_y += 1
             end
-            if ["-", "|"].include? table[t_y][t_x]
+            if ["-", "|", ">", "<", "^", "v"].include? table[t_y][t_x]
                 a["x"] = t_x 
                 a["y"] = t_y
             elsif ["\\"].include? table[t_y][t_x]
@@ -70,9 +90,13 @@ def run(table, arrays)
                 end
             end
         end
-        bum = false
+        p arrays
+        if check arrays
+            bum = false
+        end
     end
 end
-p arrays
+# p arrays
 run table, arrays
-p arrays
+# p "esio"
+# p check arrays
