@@ -5,6 +5,7 @@ p INPUT
 
 p INPUT[0].scan(/=\d?/).first.split('=').first
 map = Array.new
+output = 0
 INPUT.each do |i|
 	x = i.scan(/x=(\d+\.{2}\d+|\d+)/).first.first
 	y = i.scan(/y=(\d+\.{2}\d+|\d+)/).first.first
@@ -19,7 +20,8 @@ INPUT.each do |i|
 			map << [x.to_i, j.to_i]
 		end
 	end
-	
 end
 
+max_y = map.map(&:last).max
+p max_y
 p map
