@@ -1,4 +1,5 @@
-INPUT = File.readlines('test.txt').map(&:strip)
+# INPUT = File.readlines('test.txt').map(&:strip)
+INPUT = File.readlines('input.txt').map(&:strip)
 # INPUT = File.readlines('input.txt')
 
 max_y =  INPUT.length
@@ -30,13 +31,20 @@ def get_near(map, x, y, max_x, max_y)
 end
 
 def new_state(ngbh, x, y, map)
+	# # gets
+	# p "esio"
+	# p ngbh
+	# p map[x][y]
 	if map[x][y] == "." and ngbh[:t] >= 3
 		"|"
 	elsif map[x][y] == "|" and ngbh[:l] >= 3
 		"#"
-	elsif map[x][y] == "#" and ngbh[:l] == 0 and ngbh[:t] == 0
-		p ngbh
-		"."
+	elsif map[x][y] == "#"
+		if ngbh[:l] != 0 and ngbh[:t] != 0
+			"#"
+		else
+			"."
+		end
 	else
 		map[x][y] 
 	end
@@ -58,7 +66,7 @@ end
 	map.each do |x|
 		p x.join
 	end
-10.times do 
+1000000000.times do 
 	n_map = Array.new(max_x) { Array.new(max_y) }
 	for i in 0..max_x-1
 		for j in 0..max_y-1
@@ -66,7 +74,6 @@ end
 		end
 	end
 	map = n_map.dup
-	p ""
 	map.each do |x|
 		p x.join
 	end
