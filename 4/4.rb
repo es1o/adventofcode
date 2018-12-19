@@ -1,3 +1,6 @@
+# THIS DOESN'T WORK
+
+
 require 'time'
 data = File.readlines('input.txt')
 # data = File.readlines('test.txt')
