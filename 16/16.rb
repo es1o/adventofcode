@@ -167,7 +167,7 @@ def check_instr(before, op, after, res)
 end
 
 def parse_testcase(test)
-	num = test.scan(/\d,? \d,? \d,? \d/)
+	num = test.scan(/\d+,? \d+,? \d+,? \d+/)
 	if num.size == 3
 		before = num[0].split(',').map(&:to_i)
 		instr = num[1].split.map(&:to_i)
@@ -195,7 +195,26 @@ def decode_opcodes(opcodes)
 		end
 	end
 	oo = opcodes.select { |k, v| v.size > 0 }
+	oo.each do |k, v|
+		# send(k.to_s)
+		# p v
+		# p "esio"
+		INPUT.each_with_index do |input, i|
+			parsed = parse_testcase(input)
+			if parsed and v.include? parsed[1][0]
+				if send(k, parsed[0], parsed[1]) != parsed[2]
+					oo[k].delete parsed[1][0]
+					p oo
+				end
+			end
+			# if parsed
+			# 	op_nums[i] = check_instr(parsed[0], parsed[1], parsed[2], res)
+			# end
+		end
+	end
+	p oo.size
 	p oo
+	# p opcodes
 	# easy opcodes to decode
 	result
 end
