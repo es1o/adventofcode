@@ -194,6 +194,8 @@ def decode_opcodes(opcodes)
 			run = false
 		end
 	end
+	oo = opcodes.select { |k, v| v.size > 0 }
+	p oo
 	# easy opcodes to decode
 	result
 end
