@@ -1,10 +1,9 @@
-day02 = 0
-
 defmodule Day02 do
     def area(l, w, h) do
         2*l*w + 2*w*h + 2*h*l + l*w
     end
 end
+
 {:ok, raw } = File.read('input.txt')
 
 input = raw |> String.split("\n", trim: true)
