@@ -28,29 +28,35 @@
 defmodule Day6 do
     def light(start_x, start_y, end_x, end_y, map, type) do
         IO.puts "on"
-        for x <- start_x..end_x do
+        full_map = for x <- start_x..end_x do
             for y <- start_y..end_y do
                 if not Map.has_key?(map, {x, y}) do
-                    # bad... I need to practice functional programming
-                    # why map variable isn't updated?
-                    map = Map.put(map, {x,y}, 0)
+                    Map.put(map, {x,y}, 0)
+                else
+                    case type do
+                      :off -> Map.put(map, {x,y}, 0)
+                      :on -> Map.put(map, {x,y}, 1)
+                      _ -> Map.update(map, {x,y}, 0, &(&1 * -1))
+                    end
                 end
                 # IO.puts "X: #{x} Y: #{y}"
             end
         end
-        IO.puts "end"
-        IO.inspect map
-        map
+        full_map
     end
 
     def solve([], map) do
         IO.puts "end"
+        map
     end
+
     def solve(input, map) do
         [instr | tail] = input
+        IO.puts "ESIO"
+        IO.puts instr
+        IO.puts "ESIO"
         datax = Regex.scan(~r/\d{1,3},\d{1,3}/, instr) |> Enum.at(0)
         datay = Regex.scan(~r/\d{1,3},\d{1,3}/, instr) |> Enum.at(1)
-        IO.puts "esio"
         # IO.inspect data
         # [start_x, start_y] = Enum.get(data, 0)
         [start_x, start_y] = Enum.at(datax, 0)
@@ -61,22 +67,24 @@ defmodule Day6 do
             |> Enum.map(&String.to_integer/1)
         # x = Enum.at(data, 0) |> String.split(",", trim: true)
         # IO.inspect x
-        IO.inspect start_x
-        IO.inspect start_y
-        IO.inspect end_x
-        IO.inspect end_y
-        new_map = light(start_x, start_y, end_x, end_y, map, :on)
-        IO.inspect new_map
+        # IO.inspect start_x
+        # IO.inspect start_y
+        # IO.inspect end_x
+        # IO.inspect end_y
+        # IO.inspect new_map
         cond do
             Regex.match?(~r/^turn off/, instr) -> 
                 IO.puts "turn off"
-                solve(tail, map)
+                new_map = light(start_x, start_y, end_x, end_y, map, :off)
+                solve(tail, new_map)
             Regex.match?(~r/^turn on/, instr) -> 
                 IO.puts "turn on"
-                solve(tail, map)
+                new_map = light(start_x, start_y, end_x, end_y, map, :on)
+                solve(tail, new_map)
             Regex.match?(~r/^toggle/, instr) -> 
+                new_map = light(start_x, start_y, end_x, end_y, map, :tgl)
                 IO.puts "toggle"
-                solve(tail, map)
+                solve(tail, new_map)
             true -> IO.puts "Esio"
         end
     end
