@@ -28,19 +28,23 @@
 defmodule Day6 do
     def light(start_x, start_y, end_x, end_y, map, type) do
         IO.puts "on"
-        for x <- start_x..end_x do
+        map1 = for x <- start_x..end_x do
             for y <- start_y..end_y do
                 if not Map.has_key?(map, {x, y}) do
                     # bad... I need to practice functional programming
                     # why map variable isn't updated?
-                    map = Map.put(map, {x,y}, 0)
+                    Map.put(map, {x,y}, 0)
                 end
-                # IO.puts "X: #{x} Y: #{y}"
+                case type do
+                     :on -> IO.puts "ON"
+                     _ -> IO.puts "OFF"
+                        
+                end
             end
         end
         IO.puts "end"
-        IO.inspect map
-        map
+        IO.inspect map1
+        # map
     end
 
     def solve([], map) do
