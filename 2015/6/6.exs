@@ -27,7 +27,7 @@
 
 defmodule Day6 do
     def light(start_x, start_y, end_x, end_y, map, type) do
-        IO.puts "on"
+        # IO.puts "on"
         map1 = for x <- start_x..end_x do
             for y <- start_y..end_y do
                 if not Map.has_key?(map, {x, y}) do
@@ -35,11 +35,14 @@ defmodule Day6 do
                     # why map variable isn't updated?
                     Map.put(map, {x,y}, 0)
                 end
-                case type do
-                     :on -> IO.puts "ON"
-                     _ -> IO.puts "OFF"
+                # IO.puts type
+                # IO.puts x
+                # IO.puts y
+                # case type do
+                #      :on -> IO.puts "ON"
+                #      _ -> IO.puts "OFF"
                         
-                end
+                # end
             end
         end
         IO.puts "end"
