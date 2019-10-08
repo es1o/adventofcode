@@ -5,7 +5,8 @@ defmodule Day06 do
         new_table = List.update_at(table, max_i, fn _ -> 0 end)
         result = distribute(new_table, max, len, max_i + 1)
         if Enum.member?(history, result) do
-            step
+            prev = Enum.find_index(history, fn x -> x == result end)
+            {step, length(history) - prev}
         else
             solve(result,history ++ [result],step + 1, len)
         end
@@ -31,5 +32,6 @@ end
 
 input = raw |> String.split("\t", trim: true) |> Enum.map(fn x -> String.to_integer(x) end)
 
-IO.inspect input
-IO.inspect "part1: #{Day06.solve(input, [], 1, length(input))}"
+{p1, p2} = Day06.solve(input, [], 1, length(input))
+IO.inspect "part1: #{p1}"
+IO.inspect "part2: #{p2}"
