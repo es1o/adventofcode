@@ -1,0 +1,11 @@
+defmodule Day<%= @day %> do
+  def solve(input) do
+    IO.puts 'Solved!'
+  end
+end
+
+{:ok, raw } = File.read('input.txt')
+{:ok, raw } = File.read('test.txt')
+
+input = raw |> String.split("\n", trim: true)
+Day<%= @day %>.solve(input)
