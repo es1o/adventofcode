@@ -84,8 +84,7 @@ defmodule Day5 do
               val_a = if m3 == 1, do: a, else: Enum.at(input, a)
               new_pos = if val_a != 0 do
                 b = Enum.at(input, pos + 2)
-                val_b = if m2 == 1, do: b, else: Enum.at(input, b)
-                val_b
+                if m2 == 1, do: b, else: Enum.at(input, b)
               else
                 pos + 3
               end
@@ -95,8 +94,7 @@ defmodule Day5 do
               val_a = if m3 == 1, do: a, else: Enum.at(input, a)
               new_pos = if val_a == 0 do
                 b = Enum.at(input, pos + 2)
-                val_b = if m2 == 1, do: b, else: Enum.at(input, b)
-                val_b
+                if m2 == 1, do: b, else: Enum.at(input, b)
               else
                 pos + 3
               end
