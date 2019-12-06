@@ -39,9 +39,11 @@ defmodule Day5 do
               solve(input, pos + 2, new_id)
     end
   end
+
   def solve(_, _, id) do
     id
   end
+
   def solve2(input, pos, id) do
     opcode_digits = Enum.at(input,pos) |> Integer.digits()
     opcode_digits_full = case Enum.count(opcode_digits) do
