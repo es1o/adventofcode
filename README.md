@@ -2,6 +2,10 @@
 
 My adventofcode.com solutions - ruby or elixir.
 
+There solutions are delivered as is without any guarantee. :)
+
+I focus on fast solution delivery, this is the reason that some code hasn't good quality and not optimal.
+
 ## Generate solution templates
 
 Generate elixir template by rake: `rake gen_exs[year, day]`
@@ -21,5 +25,7 @@ Generate elixir template by rake: `rake gen_exs[year, day]`
 | 5.2 |  ✅    |  ✅    |  ✅    |  ✅    | ✅      |
 | 6.1 |      |   ✅   |  ✅   |      |     ✅   |
 | 6.2 |      |    ✅  |  ✅    |      |   ✅    |
-| 7.1 |      |      |      |      |       |
+| 7.1 |      |      |      |      |   ✅    |
 | 7.2 |      |      |      |      |       |
+| 8.1 |      |      |      |      |       |
+| 8.2 |      |      |      |      |       |
