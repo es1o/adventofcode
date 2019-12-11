@@ -31,25 +31,27 @@ defmodule Day9 do
               b = Enum.at(input, pos + 2)
               target = Enum.at(input, pos + 3)
               IO.puts "m1: #{m1}"
+              IO.puts "m2: #{m2}"
+              IO.puts "m3: #{m3}"
               IO.inspect input
               val_target = case m1 do
                 1 -> target
                 2 -> rb + target
-                _ -> Enum.at(input, target)
+                0 -> Enum.at(input, target)
               end
 
               val_a = case m3 do
                 1 -> a
                 2 -> Enum.at(input, rb + a)
-                _ -> Enum.at(input, a)
+                0 -> Enum.at(input, a)
               end
               val_b = case m2 do
                 1 -> b
                 2 -> Enum.at(input, rb + b)
-                _ -> Enum.at(input, b)
+                0 -> Enum.at(input, b)
               end
-    IO.puts "val_a: #{val_a}"
-    IO.puts "val_b: #{val_b}"
+    IO.puts "val_a: #{a}"
+    IO.puts "val_b: #{b}"
     IO.puts "target: #{target}"
     IO.puts "val_target: #{val_target}"
               new_input = List.update_at(input, val_target, fn _ -> _ = val_a + val_b end)
@@ -68,10 +70,15 @@ defmodule Day9 do
                 _ -> Enum.at(input, b)
               end
               target = Enum.at(input, pos + 3)
+              val_target = case m1 do
+                1 -> target
+                2 -> rb + target
+                0 -> Enum.at(input, target)
+              end
     # IO.puts "val_a: #{val_a}"
     # IO.puts "val_b: #{val_b}"
     # IO.puts "target: #{target}"
-              new_input = List.update_at(input, target, fn _ -> _ = val_a * val_b end)
+              new_input = List.update_at(input, val_target, fn _ -> _ = val_a * val_b end)
               solve2(new_input, pos + 4, id, rb)
       [0,3] -> 
               target = Enum.at(input, pos + 1)
@@ -232,5 +239,5 @@ end
 input_short = raw |> String.split(",", trim: true) |> Enum.map(&String.to_integer/1)
 input = input_short ++ List.duplicate(0, 300)
 
-# IO.puts "Day9 - part 1: #{Day9.solve2(input, 0, 1, 0)}"
+IO.puts "Day9 - part 1: #{Day9.solve2(input, 0, 1, 0)}"
 # IO.puts "Day9 - part 2: #{Day9.solve2(input, 0, 5)}"
