@@ -10,7 +10,7 @@ defmodule Day9 do
       1 -> [0,0,0,0] ++ opcode_digits
     end
     opcode = Enum.take(opcode_digits_full, -2)
-    [_, m2, m3] = Enum.take(opcode_digits_full, 3)
+    [m1, m2, m3] = Enum.take(opcode_digits_full, 3)
     IO.puts "opcode"
     IO.inspect opcode_digits_full
     IO.inspect "rb: #{rb}"
@@ -30,6 +30,14 @@ defmodule Day9 do
               a = Enum.at(input, pos + 1)
               b = Enum.at(input, pos + 2)
               target = Enum.at(input, pos + 3)
+              IO.puts "m1: #{m1}"
+              IO.inspect input
+              val_target = case m1 do
+                1 -> target
+                2 -> rb + target
+                _ -> Enum.at(input, target)
+              end
+
               val_a = case m3 do
                 1 -> a
                 2 -> Enum.at(input, rb + a)
@@ -40,10 +48,11 @@ defmodule Day9 do
                 2 -> Enum.at(input, rb + b)
                 _ -> Enum.at(input, b)
               end
-    # IO.puts "val_a: #{val_a}"
-    # IO.puts "val_b: #{val_b}"
-    # IO.puts "target: #{target}"
-              new_input = List.update_at(input, target, fn _ -> _ = val_a + val_b end)
+    IO.puts "val_a: #{val_a}"
+    IO.puts "val_b: #{val_b}"
+    IO.puts "target: #{target}"
+    IO.puts "val_target: #{val_target}"
+              new_input = List.update_at(input, val_target, fn _ -> _ = val_a + val_b end)
               solve2(new_input, pos + 4, id, rb)
       [0,2] ->
               a = Enum.at(input, pos + 1)
@@ -68,7 +77,7 @@ defmodule Day9 do
               target = Enum.at(input, pos + 1)
               new_target = case m3 do
                 1 -> target
-                2 -> rb
+                2 -> rb + target
                 _ -> Enum.at(input, target)
               end
               # IO.puts "new_target: #{new_target}"
@@ -217,10 +226,11 @@ defmodule Day9 do
 end
 
 {:ok, raw } = File.read('input.txt')
+# {:ok, raw } = File.read('test_5.txt')
 # {:ok, raw } = File.read('test.txt')
 
 input_short = raw |> String.split(",", trim: true) |> Enum.map(&String.to_integer/1)
 input = input_short ++ List.duplicate(0, 300)
 
-IO.puts "Day9 - part 1: #{Day9.solve2(input, 0, 1, 0)}"
+# IO.puts "Day9 - part 1: #{Day9.solve2(input, 0, 1, 0)}"
 # IO.puts "Day9 - part 2: #{Day9.solve2(input, 0, 5)}"
