@@ -95,23 +95,33 @@ defmodule Day9Test do
   #   end
   # end
   describe "opcode 05 tests" do
-    # test "test in position mode - basic" do
-    #   # input = [5,11,5,1,2,3,10,4,10,99,11,0]
-    #   input = [5,2,4,99,3]
-    #   id = Day9.solve2(input, 0, 1, 0)
-    #   assert id == 1
-    # end
+    test "test in position mode - basic - jump" do
+      # input = [5,11,5,1,2,3,10,4,10,99,11,0]
+      input = [5,2,4,99,3]
+      id = Day9.solve2(input, 0, 1, 0)
+      assert id == 1
+    end
+    test "test in position mode - basic - not to jump" do
+      # input = [5,11,5,1,2,3,10,4,10,99,11,0]
+      input = [5,4,6,99,0]
+      id = Day9.solve2(input, 0, 1, 0)
+      assert id == 1
+    end
     test "test in position mode - advenced" do
       input = [5,11,11,1,2,10,12,4,11,99,11,3,11]
-      # input = [5,2,4,99,3]
       id = Day9.solve2(input, 0, 1, 0)
       assert id == 22
     end
-    # test "test in immetiade mode" do
-    #   input = [104,3,99,666]
-    #   id = Day9.solve2(input, 0, 1, 0)
-    #   assert id == 3
-    # end
+    test "test in position mode - advenced - not to jump" do
+      input = [5,11,11,1,2,10,12,4,11,99,11,0,11]
+      id = Day9.solve2(input, 0, 1, 0)
+      assert id == 22
+    end
+    test "test in immetiade mode - advanced" do
+      input = [105,11,11,1,2,10,12,4,11,99,11,3,11]
+      id = Day9.solve2(input, 0, 1, 0)
+      assert id == 22
+    end
     # test "test in relative mode" do
     #   input = [204,1,99,666]
     #   id = Day9.solve2(input, 0, 1, 2)
