@@ -11,10 +11,10 @@ I focus on fast solution delivery, this is the reason that some code hasn't good
 Generate elixir template by rake: `rake gen_exs[year, day]`
 
 ## Solution status
-| Day | 2015 | 2016 | 2017 | 2018 | 2019 |
-| :-: | :--: | :--: | :--: | :--: | :--: |
-| 1.1 | ✅   | ✅   | ✅   | ✅  |  ✅    |
-| 1.2 | ✅   |      |      | ✅  | ✅      |
+| Day | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 |
+| :-: | :--: | :--: | :--: | :--: | :--: | :--: |
+| 1.1 | ✅   | ✅   | ✅   | ✅  |  ✅    | ✅ |
+| 1.2 | ✅   |      |      | ✅  | ✅      | ✅ |
 | 2.1 |  ✅    |  ✅    |  ✅    |  ✅    | ✅      |
 | 2.2 |  ✅    |  ✅    |  ✅    |  ✅    | ✅      |
 | 3.1 |  ✅    |  ✅    |  ✅    |  ✅    |   ✅    |
