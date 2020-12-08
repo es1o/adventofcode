@@ -3,7 +3,7 @@ defmodule Day8 do
     vm(input, 0, 0, [])
   end
   def solve2(input) do
-    vm2(input, 0, 0, -1, false, [])
+    vm2(input, 0, 0, -1, false, [], 0)
   end
   defp vm(list, p, acc, visited) do
     if Enum.member?(visited, p) do
@@ -20,41 +20,33 @@ defmodule Day8 do
       end
     end
   end
-  defp vm2(list, p, acc, prev_p, switch, visited) do
-    if switch do
-      IO.puts "switch"
-      # if (p + 1 >= Enum.count(list) and not Enum.member?(visited, p)) do
-      if (p + 1 >= Enum.count(list)) do
-        IO.puts p
-        IO.puts prev_p
-        IO.puts "END"
-        op = get_op(Enum.at(list, p))
-        case op[:op] do
-          "acc" -> IO.inspect acc + op[:addr]
-          "jmp" ->
-            if ( (p + op[:addr]) >= Enum.count(list)) do
-              IO.inspect acc
-            else
-              vm2(list, prev_p, acc, prev_p, false, visited -- [p])
-            end
-          default -> IO.inspect acc
-        end
-      else
-        IO.puts "failover"
-        vm2(list, prev_p, acc, prev_p, false, visited -- [p])
-      end
-    else
-      IO.puts "not switch"
+  defp vm2(list, p, acc, prev_p, switch, visited, prev_acc) do
+    cond do
+      Enum.member?(visited, p) ->
+        IO.inspect "LOOOOP kurwa! #{acc}"
+        IO.inspect "loop kurwa acc: #{acc}, p: #{p}, prev_p: #{prev_p}, prev_acc: #{prev_acc}"
+        vm2(list, prev_p, prev_acc, prev_p, false, visited -- [p], prev_acc)
+      (p >= Enum.count(list)) -> IO.inspect "koniec #{acc}"
+      true ->
       op = get_op(Enum.at(list, p))
-      IO.inspect op
-      IO.inspect p
       case op[:op] do
         "nop" -> IO.puts "nop"
-          vm2(list, p + op[:addr], acc, p + 1, true, visited ++ [p])
+          if switch do
+            # already changed
+            vm2(list, p + 1, acc, prev_p , true, visited ++ [p], prev_acc)
+          else
+            # change
+            vm2(list, p + op[:addr], acc, p + 1, true, visited ++ [p], acc)
+          end
         "acc" -> IO.puts "acc"
-          vm2(list, p + 1, acc + op[:addr], p + 1, false, visited ++ [p])
+          vm2(list, p + 1, acc + op[:addr], prev_p, switch, visited ++ [p], prev_acc)
         "jmp" -> IO.puts "jmp"
-          vm2(list, p + 1, acc, p + op[:addr], true, visited ++ [p])
+          if switch do
+            # already changed
+            vm2(list, p + op[:addr], acc, prev_p, true, visited ++ [p], prev_acc)
+          else
+            vm2(list, p + 1, acc, p + op[:addr], true, visited ++ [p], acc)
+          end
       end
     end
   end
