@@ -31,3 +31,4 @@ Generate elixir template by rake: `rake gen_exs[year, day]`
 | 8.2 |      |      |    ✅   |      |    ✅    |✅|
 | 9.1 |      |      |      |      |       |✅|
 | 9.2 |      |      |      |      |       |✅|
+| 10.1 |      |      |      |      |       |✅|
