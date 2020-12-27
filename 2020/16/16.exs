@@ -17,12 +17,10 @@ defmodule Day16 do
   end
   defp check([i|input], spec, res) do
     v = i |> Enum.map(fn x -> Enum.find(spec, fn y -> y == x end) end)
-    # IO.inspect i -- v
     check(input, spec, res ++ [ i -- v])
 
   end
   defp get_spec(spec) do
-    # sp = String.split(spec, "\n", trim: true)
     sp = Regex.scan(~r/\d+-\d+/, spec) |> List.flatten |> Enum.map(fn x -> String.split(x, "-") |> Enum.map(&String.to_integer/1) end)
     gen_list(sp, [])
   end
