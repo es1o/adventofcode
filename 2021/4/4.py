@@ -7,9 +7,6 @@ numbers = list(map(int,x[0].split(",")))
 
 bingo = x[1:]
 
-print(numbers)
-# print("dsdsad")
-# print(bingo)
 bingos = []
 # preare list of bingos
 for b in bingo:
@@ -54,35 +51,24 @@ for num in numbers:
         part1 = num*arr_sum(b)
         finish = True
 
-# print(bingos)
-# check(bingos[0])
-print(part1)
-# print(num)
+print("Part1: ", part1)
 
-finish = False
 part2 = 0
+last_win = []
+last_win_num = 0
+
+# get all numbers and save last win bingo. :)
 for num in numbers:
-  if not finish:
-    if len(bingos) > 1:
-      # print(num)
-      mark(num, bingos)
+  if len(bingos) > 0:
+    # print(num)
+    mark(num, bingos)
 
-      for b in bingos:
-        if check(b):
-          # part1 = sum(b)
-          # part2 = num*arr_sum(b)
-          # finish = True
-          print("REMOVE")
-          print(b)
-          bingos.remove(b)
-          print(bingos)
-          print("REMOVE END")
-    else:
-      print("FINISH")
-      print(num)
-      part2 = num*(arr_sum(bingos[0]))
-      # part2 = arr_sum(bingos[0]) - num
-      finish = True
-      # part2 = bingos[0]
+    for b in bingos:
+      if check(b):
+        last_win = b
+        last_win_num = num
+        bingos.remove(b)
+  else:
+    part2 = last_win_num*(arr_sum(last_win))
 
-print(part2)
+print("Part2: ", part2)
