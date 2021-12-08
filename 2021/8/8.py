@@ -107,8 +107,8 @@ part2 = 0
 for l in f.readlines():
   one_line = []
   signal, output = l.split('|')
-  # for o in output.split():
-  #   part1 += check1(list(o))
+  for o in output.split():
+    part1 += check1(list(o))
   # print(output)
   # print(signal)
   splitted = signal.split()
